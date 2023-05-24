@@ -28,9 +28,9 @@ class Customer {
       print('Cart is empty.');
     } else {
       print('Item ID:\tName:\t\tPrice:');
-      for (var item in cart) {
+      cart.forEach((item) {
         print('${item.id}\t\t${item.name}\t\t${item.price}');
-      }
+      });
       print("--------------------------------------------");
     }
   }
@@ -52,9 +52,9 @@ class Supermarket {
       print('Available Items:');
       print('---------------------------------------------------');
       print('Item ID:\tName:\t\tPrice:');
-      for (var item in items) {
+      items.forEach((item) {
         print('${item.id}\t\t${item.name}\t\t${item.price}');
-      }
+      });
       print('---------------------------------------------------');
     }
   }
@@ -84,13 +84,23 @@ class Supermarket {
 
     stdout.write('Add an Item by ID: ');
     int itemId = int.parse(stdin.readLineSync()!);
-    Item? selectedItem = items.firstWhere((item) => item.id == itemId);
+    Item? selectedItem;
+    items.forEach((item) {
+      if (item.id == itemId) {
+        selectedItem = item;
+      }
+    });
+
+    if (selectedItem == null) {
+      print('Item not found.');
+      return;
+    }
 
     stdout.write('How many/much? Enter Quantity: ');
     int quantity = int.parse(stdin.readLineSync()!);
 
-    Item newItem =
-        Item(selectedItem.id, selectedItem.name, selectedItem.price * quantity);
+    Item newItem = Item(
+        selectedItem!.id, selectedItem!.name, selectedItem!.price * quantity);
     customer.cart.add(newItem);
 
     print('Item added to cart successfully.');
@@ -130,10 +140,10 @@ class Supermarket {
       print("--------------------------------------------");
       print('Items Purchased:');
       print('Item ID:\tName:\t\tPrice:');
-      for (var item in customer.cart) {
+      customer.cart.forEach((item) {
         print('${item.id}\t\t${item.name}\t\t${item.price}');
         totalAmount += item.price;
-      }
+      });
       print("--------------------------------------------");
       print('Total Amount: $totalAmount');
       print("--------------------------------------------");
@@ -145,10 +155,15 @@ class Supermarket {
     stdout.write('Enter Customer ID to see all details : ');
     int customerId = int.parse(stdin.readLineSync()!);
 
-    Customer? customer =
-        customers.firstWhere((customer) => customer.id == customerId);
+    Customer? customer;
+    customers.forEach((c) {
+      if (c.id == customerId) {
+        customer = c;
+      }
+    });
+
     if (customer != null) {
-      generateBill(customer);
+      generateBill(customer!);
     } else {
       print('Customer not found.');
     }
@@ -187,10 +202,16 @@ class Supermarket {
           if (customers.isNotEmpty) {
             stdout.write('Enter your Customer ID first! : ');
             int customerId = int.parse(stdin.readLineSync()!);
-            Customer? customer =
-                customers.firstWhere((customer) => customer.id == customerId);
+
+            Customer? customer;
+            customers.forEach((c) {
+              if (c.id == customerId) {
+                customer = c;
+              }
+            });
+
             if (customer != null) {
-              addItemToCart(customer);
+              addItemToCart(customer!);
             } else {
               print('Customer not found.');
             }
@@ -202,11 +223,16 @@ class Supermarket {
           if (customers.isNotEmpty) {
             stdout.write('To see your Cart first enter your Customer ID: ');
             int customerId = int.parse(stdin.readLineSync()!);
-            Customer? customer =
-                customers.firstWhere((customer) => customer.id == customerId);
-            if (customer != null) {
-              customer.displayCart();
-            } else {
+
+            Customer? customer;
+            customers.forEach((c) {
+              if (c.id == customerId) {
+                customer = c;
+              }
+            });
+
+            customer?.displayCart();
+            if (customer == null) {
               print('Customer not found.');
             }
           } else {
@@ -215,12 +241,18 @@ class Supermarket {
           break;
         case 5:
           if (customers.isNotEmpty) {
-            stdout.write('To get the receipt first enter your Customer ID: ');
+            stdout.write('To generate bill, enter your Customer ID: ');
             int customerId = int.parse(stdin.readLineSync()!);
-            Customer? customer =
-                customers.firstWhere((customer) => customer.id == customerId);
+
+            Customer? customer;
+            customers.forEach((c) {
+              if (c.id == customerId) {
+                customer = c;
+              }
+            });
+
             if (customer != null) {
-              generateBill(customer);
+              generateBill(customer!);
             } else {
               print('Customer not found.');
             }
@@ -236,13 +268,12 @@ class Supermarket {
           }
           break;
         case 7:
-          print('Exiting...');
+          print('Exiting Supermarket Billing System. Goodbye!');
           return;
         default:
-          print('Invalid choice.');
+          print('Invalid choice. Please enter a valid option.');
+          break;
       }
-
-      print('');
     }
   }
 }
