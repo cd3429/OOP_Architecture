@@ -152,12 +152,12 @@ class Supermarket {
           '\t\t\t\t\t\t----------------- Supermarket Billing System -----------------');
       print(
           '\t\t\t\t\t\t==============================================================');
-      print('\t\t\t\t\t\t1. New Customer');
-      print('\t\t\t\t\t\t2. Display Available Items');
-      print('\t\t\t\t\t\t3. Add Item to Cart');
-      print('\t\t\t\t\t\t4. Display Customer Cart');
+      print('\t\t\t\t\t\t1. Register a new Customer');
+      print('\t\t\t\t\t\t2. Display all available Items');
+      print('\t\t\t\t\t\t3. Add an Item to the Cart');
+      print("\t\t\t\t\t\t4. Display current Customer's Cart");
       print('\t\t\t\t\t\t5. Generate Bill for Current Customer');
-      print('\t\t\t\t\t\t6. Search Customer by ID');
+      print('\t\t\t\t\t\t6. Search a Customer by ID');
       print('\t\t\t\t\t\t7. Display all Customers');
       print('\t\t\t\t\t\t8. Exit');
       print(
@@ -246,15 +246,15 @@ class Supermarket {
           break;
         case 7:
           if (customers.isNotEmpty) {
-            print("--------------------------------------------");
+            print("----------------------------------------------------------");
             print('All Customers:');
-            print("--------------------------------------------");
+            print("----------------------------------------------------------");
             print("Customer ID\tName\t\tMobile Number");
             customers.forEach((customer) {
               print(
                   '${customer.id}\t\t${customer.name}\t\t${customer.mobileNumber}');
             });
-            print("--------------------------------------------");
+            print("----------------------------------------------------------");
           } else {
             print('No customers available.');
           }

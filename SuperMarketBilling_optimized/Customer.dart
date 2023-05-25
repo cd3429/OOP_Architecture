@@ -9,11 +9,11 @@ class Customer {
   Customer(this.id, this.name, this.mobileNumber) : cart = <Item>[];
 
   void displayCart() {
-    print("--------------------------------------------");
+    print("----------------------------------------------------------");
     print('Customer ID: $id');
     print('Name: $name');
     print('Mobile Number: $mobileNumber');
-    print("--------------------------------------------");
+    print("----------------------------------------------------------");
     print('Cart:');
 
     if (cart.isEmpty) {
@@ -25,7 +25,7 @@ class Customer {
         print(
             '${item.id}\t\t${item.quantity}x ${item.name}\t\t${item.price * quantity}');
       });
-      print("--------------------------------------------");
+      print("----------------------------------------------------------");
     }
   }
 }
